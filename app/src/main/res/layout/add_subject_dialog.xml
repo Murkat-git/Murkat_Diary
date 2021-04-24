@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant"
+    android:orientation="vertical">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите название"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorOnPrimary"
+        android:id="@+id/addSubjectName"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите кабинет"
+        android:id="@+id/addSubjectCab"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorOnPrimary"/>
+</LinearLayout>

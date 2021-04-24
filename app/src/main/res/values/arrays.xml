@@ -1,0 +1,20 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>@string/blue</item>
+        <item>@string/purple</item>
+    </string-array>
+    <string-array name="columnsSubject">
+        <item>name</item>
+        <item>cabinet</item>
+    </string-array>
+</resources>

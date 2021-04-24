@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Murkat</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Murkat</string>
+    <string name="nav_header_subtitle">murkat2007@yandex.ru</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="drop_table">Очистить все таблицы</string>
+
+    <string name="menu_home">Расписание</string>
+    <string name="menu_gallery">Учителя</string>
+    <string name="menu_slideshow">Время до конца урока</string>
+    <string name="menu_settings">Настройки</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Сообщения</string>
+    <string name="sync_header">Sync</string>
+<!--Дни недели    -->
+    <string name="md">Пн</string>
+    <string name="td">Вт</string>
+    <string name="wd">Ср</string>
+    <string name="thd">Чт</string>
+    <string name="fd">Пт</string>
+    <string name="sd">Сб</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+    <string name="send_messages_on">Напоминать сделать домашнее задание</string>
+    <string name="send_messages_off">Не отправлять напоминания</string>
+    <string name="send_messages_title">Отправлять сообщения</string>
+    <string name="send_time">Установить время напоминания</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Theme Values -->
+    <string name="theme">Тема</string>
+    <string name="purple">Фиолетовая тема</string>
+    <string name="blue">Синяя тема</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyBorderlessButton">
+        <!-- Set background drawable and text size of the buttons here -->
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <style name="MyAlertDialogTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="MyAlertTextAppearance">
+        <!-- Set text size and color of title and message here -->
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="MyAlertDialogTheme">
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+
+
+    </style>
+</resources>

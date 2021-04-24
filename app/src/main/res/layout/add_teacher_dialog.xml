@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/addTeacherName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorOnPrimary"
+        android:hint="Введите ФИО учителя"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addTeacherName">
+
+        <EditText
+            android:id="@+id/addTeacherTel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorOnPrimary"
+            android:hint="Введите телефон"
+            android:textColorHint="?attr/colorOnPrimary"
+
+            />
+
+        <EditText
+            android:id="@+id/addTeacherEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorOnPrimary"
+            android:hint="Введите email"
+            android:textColorHint="?attr/colorOnPrimary" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/addTeacherSubjects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorOnPrimary"
+        android:hint="Перечислите предметы, которые ведет учитель"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addTeacherSubjects" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

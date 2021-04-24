@@ -1,0 +1,60 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Testing" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="colorPrimary">#8A2BE2</item>
+        <item name="colorPrimaryVariant">#4B0082</item>
+        <item name="colorOnPrimary">#F0FFFF</item>
+        <item name="background">?attr/colorPrimary</item>
+        <item name="tabBackground">?attr/colorPrimaryVariant</item>
+        <item name="android:colorBackground">?attr/background</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="colorSecondary">?attr/colorPrimaryVariant</item>
+        <item name="colorAccent">?attr/colorPrimaryVariant</item>
+        <item name="android:alertDialogTheme">@style/MyAlertDialogTheme</item>
+        <!-- Secondary brand color. -->
+<!--        <item name="colorSecondary">@color/teal_200</item>-->
+<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="actionBarSize">40dp</item>
+
+
+    </style>
+
+    <style name="Theme.Testing.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Testing.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Testing.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- Base application theme. -->
+    <style name="Theme_Blue" parent="Theme.Testing">
+        <item name="colorPrimary">#4169E1</item>
+        <item name="colorPrimaryVariant">#191970</item>
+        <item name="colorOnPrimary">#F0FFFF</item>
+    </style>
+
+    <style name="Theme_Blue.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme_Blue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme_Blue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+   <!-- <style name="splashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>-->
+    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar" >
+        <item name="android:windowDisablePreview">false</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+
+    </style>
+</resources>
