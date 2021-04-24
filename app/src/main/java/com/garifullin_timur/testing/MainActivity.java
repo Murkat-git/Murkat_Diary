@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d("theme", "сработало тема");
 
         }
+        else if (prefString.equals(getString(R.string.orange))){
+            setTheme(R.style.Theme_Orange);
+            Log.d("theme", "сработало тема");
+
+        }
         else {
             setTheme(R.style.Theme_Testing);
             Log.d("theme", "сработало");

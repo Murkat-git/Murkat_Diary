@@ -48,7 +48,10 @@
     <style name="Theme_Blue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme_Blue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
+    <style name="Theme_Orange" parent="Theme.Testing">
+        <item name="colorPrimary">#E35809</item>
+        <item name="colorPrimaryVariant">#BA3511</item>
+    </style>
    <!-- <style name="splashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>-->
