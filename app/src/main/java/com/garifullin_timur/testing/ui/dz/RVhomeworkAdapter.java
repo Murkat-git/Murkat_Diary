@@ -1,5 +1,9 @@
 package com.garifullin_timur.testing.ui.dz;
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,7 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
     private RVhomeworkAdapter.OnItemClickListener mListener;
     public interface OnItemClickListener{
         void onItemClick(int position);
+        void onLongClick(int position);
     }
     public static class HomeViewHolder extends RecyclerView.ViewHolder{
         TextView tx1, tx2;
@@ -28,7 +33,7 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
             super(itemView);
             tx1 = itemView.findViewById(R.id.dzSubjectName);
             tx2 = itemView.findViewById(R.id.dz);
-//            img = itemView.findViewById(R.id.imageView3);
+            img = itemView.findViewById(R.id.imageView2);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -38,6 +43,18 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
                             listener.onItemClick(position);
                         }
                     }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onLongClick(position);
+                        }
+                    }
+                    return true;
                 }
             });
         }
@@ -57,6 +74,12 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
     public void onBindViewHolder(@NonNull RVhomeworkAdapter.HomeViewHolder holder, int position) {
         holder.tx1.setText(homeworks.get(position).getSubjectName());
         holder.tx2.setText(homeworks.get(position).getDz());
+        if (homeworks.get(position).isDone()){
+            holder.img.setImageResource(R.drawable.ic_fi_rr_checkbox);
+        }
+        else {
+            holder.img.setImageResource(R.drawable.ic_fi_rr_square);
+        }
     }
 
     @Override
@@ -71,8 +94,10 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
     public int getItemCount() {
         return homeworks.size();
     }
+    Context context;
     List<HomeWork> homeworks;
-    public RVhomeworkAdapter(List<HomeWork> subjects, RVhomeworkAdapter.OnItemClickListener listener) {
+    public RVhomeworkAdapter(Context context, List<HomeWork> subjects, RVhomeworkAdapter.OnItemClickListener listener) {
+        this.context = context;
         this.homeworks = subjects;
         mListener = listener;
     }

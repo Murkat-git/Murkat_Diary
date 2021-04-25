@@ -13,17 +13,20 @@ public class HomeWork {
     String subjectName;
     String dz;
     int dayInd;
+    boolean done;
     public HomeWork(String subjectName, String dz, int dayInd) {
         this.subjectName = subjectName;
         this.dz = dz;
         this.dayInd = dayInd;
+        done = false;
     }
     @Ignore
-    public HomeWork(int _id, String subjectName, String dz, int dayInd) {
+    public HomeWork(int _id, String subjectName, String dz, int dayInd, boolean done) {
         this._id = _id;
         this.subjectName = subjectName;
         this.dz = dz;
         this.dayInd = dayInd;
+        this.done = done;
     }
 
     public int get_id() {
@@ -56,5 +59,13 @@ public class HomeWork {
 
     public void setDayInd(int dayInd) {
         this.dayInd = dayInd;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

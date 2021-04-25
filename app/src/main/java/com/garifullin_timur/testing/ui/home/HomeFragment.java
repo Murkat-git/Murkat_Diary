@@ -177,8 +177,13 @@ public class HomeFragment extends Fragment {
                                         View root4 = inflater.inflate(R.layout.delete_subject_dialog, null);
                                         deleteSubjectName = root4.findViewById(R.id.deleteSubjectName);
                                         deleteSubjectName.setText(clicked.getName());
-                                        deleteSubjectBuilder.setView(root4)
-                                                .show();
+                                        deleteSubjectBuilder.setView(root4);
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                deleteSubjectBuilder.show();
+                                            }
+                                        });
 
                             }
                         }

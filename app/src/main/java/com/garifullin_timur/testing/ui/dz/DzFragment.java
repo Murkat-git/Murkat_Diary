@@ -89,7 +89,7 @@ public class DzFragment extends Fragment {
                         .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                HomeWork newHomework = new HomeWork(clicked.get_id(), tx1.getText().toString(), tx2.getText().toString(), clicked.getDayInd());
+                                HomeWork newHomework = new HomeWork(clicked.get_id(), tx1.getText().toString(), tx2.getText().toString(), clicked.getDayInd(), clicked.isDone());
                                 new Thread(){
                                     @Override
                                     public void run() {
@@ -131,6 +131,20 @@ public class DzFragment extends Fragment {
                 }.start();
 
             }
+
+            @Override
+            public void onLongClick(int position) {
+                HomeWork longClicked = rVhomeworkAdapter.getItem(position);
+                new Thread(){
+                    @Override
+                    public void run() {
+                        homeWorkDao.update(new HomeWork(longClicked.get_id(), longClicked.getSubjectName(), longClicked.getDz(), dayInd,!longClicked.isDone()));
+                        List<HomeWork> c = homeWorkDao.findByDay(dayInd);
+                        setInUIThread(c);
+                    }
+                }.start();
+
+            }
         };
         tabLayout = root.findViewById(R.id.tabLHomeWorks);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -157,7 +171,7 @@ public class DzFragment extends Fragment {
             @Override
             public void run() {
                 Log.d("mytag", "" + c.size());
-                rVhomeworkAdapter = new RVhomeworkAdapter(c, mOnClickListener);
+                rVhomeworkAdapter = new RVhomeworkAdapter(getContext(), c, mOnClickListener);
                 recyclerView.setAdapter(rVhomeworkAdapter);
             }
         });
