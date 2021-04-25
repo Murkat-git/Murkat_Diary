@@ -29,82 +29,42 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     FloatingActionButton fab;
-    View root;
+    View root, root2, root3;
     SubjectsDB db;
-    ListView listView;
     SubjectDao subjectDao;
     TabLayout tabLayout;
     RecyclerView recyclerView;
     RVsubjectAdapter rVsubjectAdapter;
     int dayInd = 0;
+    Subject clicked;
+    TextView openDialogCabinet;
+    TextView openDialogSubjectName;
+    TextView deleteSubjectName;
+    EditText addSubjectName;
+    EditText addSubjectCabinet;
+    AlertDialog.Builder addSubjectBuilder, openSubjectBuilder, deleteSubjectBuilder;
     RVsubjectAdapter.OnItemClickListener mOnClickListener;
     private HomeViewModel homeViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
+        setDialogs();
         mOnClickListener = new RVsubjectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
-                new Thread(){
-                    @Override
 
-                    public void run() {
-                        Subject clicked = rVsubjectAdapter.getItem(position);
+                        clicked = rVsubjectAdapter.getItem(position);
 
                         LayoutInflater inflater = getActivity().getLayoutInflater();
-                        View root2 = inflater.inflate(R.layout.subject_open_dialog, null);
-                        TextView tx2 = root2.findViewById(R.id.subjectName);
-                        TextView tx3 = root2.findViewById(R.id.subjectCabinet);
-                        tx2.setText(clicked.getName());
-                        tx3.setText(clicked.getCabinet());
-                        View root3 = inflater.inflate(R.layout.open_dialog_title, null);
-                        TextView tx4 = root3.findViewById(R.id.openInfo);
-                        tx4.setText("Информация о предмете");
-                        ImageView trash = root3.findViewById(R.id.trash);
-                        builder.setView(root2)
-                                .setCustomTitle(root3)
-                                .setNeutralButton("Закрыть", null
-                                )
-                                .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Subject NewSubject = new Subject(clicked.get_id(), "" + tx2.getText(), "" + tx3.getText(), clicked.getDayIndex());
-                                        new Thread(){
-                                            @Override
-                                            public void run() {
-                                                subjectDao.update(NewSubject);
-                                                List<Subject> c = subjectDao.findByDay(dayInd);
-                                                setInUIThread(c);
-                                            }
-                                        }.start();
+                        root2 = inflater.inflate(R.layout.subject_open_dialog, null);
+                        openDialogSubjectName = root2.findViewById(R.id.subjectName);
+                        openDialogCabinet = root2.findViewById(R.id.subjectCabinet);
+                        openDialogSubjectName.setText(clicked.getName());
+                        openDialogCabinet.setText(clicked.getCabinet());
+                        openSubjectBuilder.setView(root2);
+                        openSubjectBuilder.show();
 
-                                    }
-                                });
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog dialog = builder.create();
-                                trash.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        new Thread(){
-                                            @Override
-                                            public void run() {
-                                                dialog.dismiss();
-                                                subjectDao.delete(clicked);
-                                                List<Subject> c = subjectDao.findByDay(dayInd);
-                                                setInUIThread(c);
-                                            }
-                                        }.start();
-                                    }
-                                });
-                                dialog.show();
-                            }
-                        });
-                    }
-                }.start();
             }
         };
         new Thread(){
@@ -149,47 +109,6 @@ public class HomeFragment extends Fragment {
         });
 
         fab.setOnClickListener(this::onAddSubjectClick);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                new Thread(){
-//                    @Override
-//
-//                    public void run() {
-//                        Cursor c = (Cursor) listView.getItemAtPosition(position);
-//                        int SubjectId = c.getInt(0);
-//                        Subject clicked = subjectDao.findById(SubjectId);
-//
-//                        LayoutInflater inflater = getActivity().getLayoutInflater();
-//                        View root2 = inflater.inflate(R.layout.subject_open_dialog, null);
-//                        TextView tx1 = root2.findViewById(R.id.subjectId);
-//                        TextView tx2 = root2.findViewById(R.id.subjectName);
-//                        TextView tx3 = root2.findViewById(R.id.subjectCabinet);
-//                        tx1.setText("" + clicked.get_id());
-//                        tx2.setText(clicked.getName());
-//                        tx3.setText(clicked.getCabinet());
-//                        builder.setView(root2)
-//                                .setNegativeButton("Закрыть", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//
-//                                    }
-//                                })
-//                                .setTitle("Информация о предмете");
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                builder.show();
-//                            }
-//                        });
-//                    }
-//                }.start();
-//
-//
-//            }
-//        });
         return root;
     }
     public void setInUIThread(List<Subject> c) {
@@ -198,73 +117,89 @@ public class HomeFragment extends Fragment {
             public void run() {
                 Log.d("mytag", "" + c.size());
                 rVsubjectAdapter = new RVsubjectAdapter(c, mOnClickListener);
-//                rVsubjectAdapter.setOnEntryClickListener(new RVsubjectAdapter.OnEntryClickListener() {
-//                    @Override
-//                    public void onEntryClick(View view, int position) {
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                        new Thread(){
-//                            @Override
-//
-//                            public void run() {
-//
-//                                Subject SubjectClck = rVsubjectAdapter.getItem(position);
-//
-//                                LayoutInflater inflater = getActivity().getLayoutInflater();
-//                                View root2 = inflater.inflate(R.layout.subject_open_dialog, null);
-//                                TextView tx1 = root2.findViewById(R.id.subjectId);
-//                                TextView tx2 = root2.findViewById(R.id.subjectName);
-//                                TextView tx3 = root2.findViewById(R.id.subjectCabinet);
-//                                tx1.setText("" + SubjectClck.get_id());
-//                                tx2.setText(SubjectClck.getName());
-//                                tx3.setText(SubjectClck.getCabinet());
-//                                builder.setView(root2)
-//                                        .setNegativeButton("Закрыть", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                            }
-//                                        })
-//                                        .setTitle("Информация о предмете");
-//                                getActivity().runOnUiThread(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        builder.show();
-//                                    }
-//                                });
-//                            }
-//                        }.start();
-//                    }
-//                });
                 recyclerView.setAdapter(rVsubjectAdapter);
             }
             });
 
 }
     public void onAddSubjectClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View root2 = inflater.inflate(R.layout.add_subject_dialog, null);
-        EditText tx1 = root2.findViewById(R.id.addSubjectName);
-        EditText tx2 = root2.findViewById(R.id.addSubjectCab);
-        builder.setView(root2)
-                .setTitle("Введите информацию о предмете")
-                .setNeutralButton("Отмена", new DialogInterface.OnClickListener() {
-                            @Override public void onClick(DialogInterface dialog, int which) {
-                            }
-                })
+        root3 = inflater.inflate(R.layout.add_subject_dialog, null);
+        addSubjectName = root2.findViewById(R.id.addSubjectName);
+        addSubjectCabinet = root2.findViewById(R.id.addSubjectCab);
+        addSubjectBuilder.setView(root3)
+                .show();
+            }
+    public void setDialogs(){
+        addSubjectBuilder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
+        addSubjectBuilder
+                .setTitle("Добавить урок")
+                .setNegativeButton("Отмена", null)
                 .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         new Thread() {
                             @Override
                             public void run() {
-                                subjectDao.insert(new Subject(tx1.getText().toString(), tx2.getText().toString(), dayInd));
+                                subjectDao.insert(new Subject(addSubjectName.getText().toString(), addSubjectCabinet.getText().toString(), dayInd));
                                 List<Subject> c = subjectDao.findByDay(dayInd);
                                 setInUIThread(c);
                             }
                         }.start();
                     }
-                }).show();
-            }
+                });
 
+        deleteSubjectBuilder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
+        deleteSubjectBuilder
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                subjectDao.delete(clicked);
+                                List<Subject> c = subjectDao.findByDay(dayInd);
+                                setInUIThread(c);
+                            }
+                        }.start();
+
+                    }
+                })
+                .setNegativeButton("Нет", null);
+
+        openSubjectBuilder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
+        openSubjectBuilder
+                .setTitle("Информация о предмете")
+                .setNeutralButton("Удалить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                        LayoutInflater inflater = getActivity().getLayoutInflater();
+                                        View root4 = inflater.inflate(R.layout.delete_subject_dialog, null);
+                                        deleteSubjectName = root4.findViewById(R.id.deleteSubjectName);
+                                        deleteSubjectName.setText(clicked.getName());
+                                        deleteSubjectBuilder.setView(root4)
+                                                .show();
+
+                            }
+                        }
+                )
+                .setNegativeButton("Закрыть", null)
+                .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Subject NewSubject = new Subject(clicked.get_id(), "" + openDialogSubjectName.getText().toString(), openDialogCabinet.getText().toString(), clicked.getDayIndex());
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                subjectDao.update(NewSubject);
+                                List<Subject> c = subjectDao.findByDay(dayInd);
+                                setInUIThread(c);
+                            }
+                        }.start();
+
+                    }
+                });
+
+
+    }
 }
