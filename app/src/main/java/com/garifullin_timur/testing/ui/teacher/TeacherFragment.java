@@ -42,6 +42,10 @@ public class TeacherFragment extends Fragment {
     RVteacherAdapter rVteacherAdapter;
     FloatingActionButton fab;
     RVteacherAdapter.OnItemClickListener onItemClickListener;
+    AlertDialog.Builder addTeacher, openTeacher, deleteTeacher;
+    LayoutInflater inflater1;
+    EditText addTeacherName, addteacherEmail, addTeacherTel, addTeacherSubjects;
+    Teacher clicked;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
@@ -49,56 +53,24 @@ public class TeacherFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_teacher, container, false);
         db = TeacherDB.create(getContext(), false);
         teacherDao = db.teacherDao();
+        inflater1 = getActivity().getLayoutInflater();
+        setDialogs();
         onItemClickListener = new RVteacherAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Teacher clicked = rVteacherAdapter.getItem(position);
+                clicked = rVteacherAdapter.getItem(position);
                 LayoutInflater inflater = getActivity().getLayoutInflater();
-                View root2 = inflater.inflate(R.layout.teacher_open_dialog, null);
-                EditText tx1 = root2.findViewById(R.id.openTeacherName);
-                EditText tx2 = root2.findViewById(R.id.openTeacherEmail);
-                EditText tx3 = root2.findViewById(R.id.openTeacherTel);
-                EditText tx4 = root2.findViewById(R.id.openTeacherSubjects);
+                View root3 = inflater.inflate(R.layout.teacher_open_dialog, null);
+                EditText tx1 = root3.findViewById(R.id.openTeacherName);
+                EditText tx2 = root3.findViewById(R.id.openTeacherEmail);
+                EditText tx3 = root3.findViewById(R.id.openTeacherTel);
+                EditText tx4 = root3.findViewById(R.id.openTeacherSubjects);
                 tx1.setText(clicked.getName());
                 tx2.setText(clicked.getEmail());
                 tx3.setText(clicked.getTel());
                 tx4.setText(clicked.getSubjects());
-                ImageView img = root2.findViewById(R.id.openTeacherTrash);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                        .setView(root2)
-                        .setNeutralButton("Закрыть", null)
-                        .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Teacher newTeacher = new Teacher(clicked.get_id(), tx1.getText().toString(), tx4.getText().toString(), tx3.getText().toString(), tx2.getText().toString());
-                                new Thread(){
-                                    @Override
-                                    public void run() {
-                                        teacherDao.update(newTeacher);
-                                        List<Teacher> c = teacherDao.selectAll();
-                                        setInUIThread(c);
-                                    }
-                                }.start();
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new Thread(){
-                            @Override
-                            public void run() {
-                                dialog.dismiss();
-                                teacherDao.delete(clicked);
-                                List<Teacher> c = teacherDao.selectAll();
-                                setInUIThread(c);
-                            }
-                        }.start();
-                    }
-                });
-                dialog.show();
-
+                openTeacher.setView(root3);
+                openTeacher.show();
 
             }
         };
@@ -106,7 +78,18 @@ public class TeacherFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv.setLayoutManager(linearLayoutManager);
         fab = getActivity().findViewById(R.id.fab);
-        fab.setOnClickListener(this::onAddTeacherClick);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View root2 = inflater1.inflate(R.layout.add_teacher_dialog, null);
+                addTeacherName = root2.findViewById(R.id.addTeacherName);
+                addteacherEmail = root2.findViewById(R.id.addTeacherEmail);
+                addTeacherTel = root2.findViewById(R.id.addTeacherTel);
+                addTeacherSubjects = root2.findViewById(R.id.addTeacherSubjects);
+                addTeacher.setView(root2);
+                addTeacher.show();
+            }
+        });
         new Thread(){
             @Override
             public void run() {
@@ -128,21 +111,20 @@ public class TeacherFragment extends Fragment {
         });
 
     }
-    public void onAddTeacherClick(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View root2 = inflater.inflate(R.layout.add_teacher_dialog, null);
-        EditText tx1 = root2.findViewById(R.id.addTeacherName);
-        EditText tx2 = root2.findViewById(R.id.addTeacherEmail);
-        EditText tx3 = root2.findViewById(R.id.addTeacherTel);
-        EditText tx4 = root2.findViewById(R.id.addTeacherSubjects);
-        builder.setView(root2)
+    public void setDialogs(){
+        addTeacher = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
+        View root2 = inflater1.inflate(R.layout.add_teacher_dialog, null);
+        addTeacherName = root2.findViewById(R.id.addTeacherName);
+        addteacherEmail = root2.findViewById(R.id.addTeacherEmail);
+        addTeacherTel = root2.findViewById(R.id.addTeacherTel);
+        addTeacherSubjects = root2.findViewById(R.id.addTeacherSubjects);
+        addTeacher.setView(root2)
                 .setTitle("Добавление учителя")
-                .setNeutralButton("Закрыть", null)
+                .setNegativeButton("Закрыть", null)
                 .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Teacher added = new Teacher(tx1.getText().toString(), tx4.getText().toString(), tx3.getText().toString(), tx2.getText().toString());
+                        Teacher added = new Teacher(addTeacherName.getText().toString(), addTeacherSubjects.getText().toString(), addTeacherTel.getText().toString(), addteacherEmail.getText().toString());
                         new Thread(){
                             @Override
                             public void run() {
@@ -152,6 +134,59 @@ public class TeacherFragment extends Fragment {
                             }
                         }.start();
                     }
-                }).show();
+                });
+
+
+
+        deleteTeacher = new AlertDialog.Builder(getContext())
+                .setNegativeButton("Нет", null)
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                teacherDao.delete(clicked);
+                                List<Teacher> c = teacherDao.selectAll();
+                                setInUIThread(c);
+                            }
+                        }.start();
+                    }
+                });
+
+        openTeacher = new AlertDialog.Builder(getContext())
+                .setTitle("Информация об учителе")
+                .setView(root2)
+                .setNeutralButton("Удалить", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        View root3 = inflater1.inflate(R.layout.delete_dialog, null);
+                        TextView delete_info = root3.findViewById(R.id.del_info);
+                        TextView delete_name = root3.findViewById(R.id.deleteSubjectName);
+                        String del_info = getResources().getString(R.string.del_teach);
+                        delete_info.setText(del_info);
+                        delete_name.setText(clicked.getName());
+                        deleteTeacher.setView(root3);
+                        deleteTeacher.show();
+                    }
+                })
+                .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Teacher newTeacher = new Teacher(clicked.get_id(), addTeacherName.getText().toString(), addTeacherSubjects.getText().toString(), addTeacherTel.getText().toString(), addteacherEmail.getText().toString());
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                teacherDao.update(newTeacher);
+                                List<Teacher> c = teacherDao.selectAll();
+                                setInUIThread(c);
+                            }
+                        }.start();
+                    }
+                })
+                .setNegativeButton("Закрыть", null);
+
+
+
     }
 }

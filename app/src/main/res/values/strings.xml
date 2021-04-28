@@ -42,4 +42,10 @@
     <string name="purple">Фиолетовая тема</string>
     <string name="blue">Синяя тема</string>
     <string name="orange">Оранжевая тема</string>
+
+<!--   delete dialog-->
+    <string name="del_subj">Вы действительно хотите удалить урок?</string>
+    <string name="del_teach">Вы действительно хотите удалить учителя?</string>
+    <string name="del_dz">Вы действительно хотите удалить дз?</string>
+
 </resources>

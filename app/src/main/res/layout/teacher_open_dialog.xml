@@ -13,25 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Информация об учителе"
-            android:textSize="30sp" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:id="@+id/openTeacherTrash"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-            android:src="@drawable/ic_fi_rr_trash"
-            app:tint="?attr/colorOnPrimary" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textView3"

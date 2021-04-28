@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,12 +22,14 @@ import com.garifullin_timur.testing.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 
 public class HomeFragment extends Fragment {
     FloatingActionButton fab;
-    View root, root2, root3;
+    View root, root2;
     SubjectsDB db;
     SubjectDao subjectDao;
     TabLayout tabLayout;
@@ -124,10 +124,10 @@ public class HomeFragment extends Fragment {
 }
     public void onAddSubjectClick(View v) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        root3 = inflater.inflate(R.layout.add_subject_dialog, null);
+        root2 = inflater.inflate(R.layout.add_subject_dialog, null);
         addSubjectName = root2.findViewById(R.id.addSubjectName);
         addSubjectCabinet = root2.findViewById(R.id.addSubjectCab);
-        addSubjectBuilder.setView(root3)
+        addSubjectBuilder.setView(root2)
                 .show();
             }
     public void setDialogs(){
@@ -174,8 +174,11 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                         LayoutInflater inflater = getActivity().getLayoutInflater();
-                                        View root4 = inflater.inflate(R.layout.delete_subject_dialog, null);
+                                        View root4 = inflater.inflate(R.layout.delete_dialog, null);
                                         deleteSubjectName = root4.findViewById(R.id.deleteSubjectName);
+                                        TextView deleteInfo = root4.findViewById(R.id.del_info);
+                                        String del_info = getResources().getString(R.string.del_subj);
+                                        deleteInfo.setText(del_info);
                                         deleteSubjectName.setText(clicked.getName());
                                         deleteSubjectBuilder.setView(root4);
                                         getActivity().runOnUiThread(new Runnable() {
