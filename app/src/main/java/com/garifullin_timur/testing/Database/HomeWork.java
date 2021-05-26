@@ -10,20 +10,20 @@ public class HomeWork {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     int _id;
-    String subjectName;
+    int sub_id;
     String dz;
     int dayInd;
     boolean done;
-    public HomeWork(String subjectName, String dz, int dayInd) {
-        this.subjectName = subjectName;
+    public HomeWork(int sub_id, String dz, int dayInd) {
+        this.sub_id = sub_id;
         this.dz = dz;
         this.dayInd = dayInd;
         done = false;
     }
     @Ignore
-    public HomeWork(int _id, String subjectName, String dz, int dayInd, boolean done) {
+    public HomeWork(int _id, int sub_id, String dz, int dayInd, boolean done) {
         this._id = _id;
-        this.subjectName = subjectName;
+        this.sub_id = sub_id;
         this.dz = dz;
         this.dayInd = dayInd;
         this.done = done;
@@ -37,12 +37,12 @@ public class HomeWork {
         this._id = _id;
     }
 
-    public String getSubjectName() {
-        return subjectName;
+    public int getSub_id() {
+        return sub_id;
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public void setSub_id(int sub_id) {
+        this.sub_id = sub_id;
     }
 
     public String getDz() {

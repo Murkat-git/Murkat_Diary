@@ -27,13 +27,14 @@
         app:layout_constraintTop_toBottomOf="@+id/teacher_name" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/teacher_subjects"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="Русский, Литература"
-        android:id="@+id/teacher_subjects"
+        android:singleLine="true"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/teacher_name" />
     <View

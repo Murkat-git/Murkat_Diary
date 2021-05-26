@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_rasp">
 
+    <fragment
+        android:id="@+id/nav_rasp"
+        android:name="com.garifullin_timur.testing.ui.rasp.RaspFragment"
+        android:label="Расписание"
+        tools:layout="@layout/fragment_rasp"
+        />
     <fragment
         android:id="@+id/nav_home"
         android:name="com.garifullin_timur.testing.ui.home.HomeFragment"

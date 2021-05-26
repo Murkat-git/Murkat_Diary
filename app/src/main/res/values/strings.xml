@@ -9,7 +9,7 @@
 
     <string name="menu_home">Расписание</string>
     <string name="menu_gallery">Учителя</string>
-    <string name="menu_slideshow">Время до конца урока</string>
+    <string name="menu_slideshow">ДЗ</string>
     <string name="menu_settings">Настройки</string>
     <!-- Preference Titles -->
     <string name="messages_header">Сообщения</string>

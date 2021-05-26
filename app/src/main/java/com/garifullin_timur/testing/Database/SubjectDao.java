@@ -18,8 +18,11 @@ public interface SubjectDao {
     @Query("SELECT * FROM subjects WHERE _id=:id")
     Subject findById(int id);
 
-    @Query("SELECT * FROM subjects WHERE dayIndex=:dayIndex")
-    List<Subject> findByDay(int dayIndex);
+//    @Query("SELECT * FROM subjects WHERE dayIndex=:dayIndex")
+//    List<Subject> findByDay(int dayIndex);
+    @Query("SELECT * FROM subjects WHERE teach_id=:id")
+    List<Subject> findByTeach(int id);
+
 
     @Insert
     void insert(Subject... subjects);

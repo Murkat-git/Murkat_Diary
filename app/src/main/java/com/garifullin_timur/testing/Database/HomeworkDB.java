@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {HomeWork.class}, version = 2)
+@Database(entities = {HomeWork.class}, version = 3)
 public abstract class HomeworkDB extends RoomDatabase {
     public abstract HomeWorkDao homeWorkDao();
 

@@ -12,6 +12,12 @@ public interface HomeWorkDao {
     @Query("SELECT * FROM homeworks WHERE dayInd=:dayInd")
     List<HomeWork> findByDay(int dayInd);
 
+    @Query("SELECT * FROM homeworks WHERE sub_id=:id")
+    List<HomeWork> findBySubId(int id);
+
+    @Query("DELETE FROM homeworks WHERE dayInd=:dayInd")
+    void deleteAllByDay(int dayInd);
+
     @Insert
     void insert(HomeWork... homeWork);
 

@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.RoomDatabase;
 
 import com.garifullin_timur.testing.Database.Subject;
 import com.garifullin_timur.testing.Database.SubjectDao;
@@ -31,6 +32,7 @@ import com.garifullin_timur.testing.R;
 import com.garifullin_timur.testing.ui.home.RVsubjectAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherFragment extends Fragment {
@@ -38,6 +40,8 @@ public class TeacherFragment extends Fragment {
     private TeacherViewModel galleryViewModel;
     TeacherDB db;
     TeacherDao teacherDao;
+    SubjectsDB db1;
+    SubjectDao subjectDao;
     RecyclerView rv;
     RVteacherAdapter rVteacherAdapter;
     FloatingActionButton fab;
@@ -45,6 +49,8 @@ public class TeacherFragment extends Fragment {
     AlertDialog.Builder addTeacher, openTeacher, deleteTeacher;
     LayoutInflater inflater1;
     EditText addTeacherName, addteacherEmail, addTeacherTel, addTeacherSubjects;
+    EditText openTeacherName, openTeacherEmail, openTeacherTel;
+    TextView openTeacherSubjects;
     Teacher clicked;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,24 +59,42 @@ public class TeacherFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_teacher, container, false);
         db = TeacherDB.create(getContext(), false);
         teacherDao = db.teacherDao();
+        db1 = SubjectsDB.create(getContext(), false);
+        subjectDao = db1.subjectDao();
         inflater1 = getActivity().getLayoutInflater();
         setDialogs();
         onItemClickListener = new RVteacherAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                clicked = rVteacherAdapter.getItem(position);
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View root3 = inflater.inflate(R.layout.teacher_open_dialog, null);
-                EditText tx1 = root3.findViewById(R.id.openTeacherName);
-                EditText tx2 = root3.findViewById(R.id.openTeacherEmail);
-                EditText tx3 = root3.findViewById(R.id.openTeacherTel);
-                EditText tx4 = root3.findViewById(R.id.openTeacherSubjects);
-                tx1.setText(clicked.getName());
-                tx2.setText(clicked.getEmail());
-                tx3.setText(clicked.getTel());
-                tx4.setText(clicked.getSubjects());
-                openTeacher.setView(root3);
-                openTeacher.show();
+                new Thread(){
+                    @Override
+                    public void run() {
+                        clicked = rVteacherAdapter.getItem(position);
+                        LayoutInflater inflater = getActivity().getLayoutInflater();
+                        View root3 = inflater.inflate(R.layout.teacher_open_dialog, null);
+                        openTeacherName = root3.findViewById(R.id.openTeacherName);
+                        openTeacherEmail = root3.findViewById(R.id.openTeacherEmail);
+                        openTeacherTel = root3.findViewById(R.id.openTeacherTel);
+                        openTeacherSubjects = root3.findViewById(R.id.openTeacherSubjects);
+
+                        String subjects = rVteacherAdapter.getSubjects(position);
+                        subjects = subjects.trim();
+                        openTeacherSubjects.setText(subjects);
+                        Log.d("mytag"," ' "  + subjects + " ' ");
+                        openTeacherName.setText(clicked.getName());
+                        openTeacherEmail.setText(clicked.getEmail());
+                        openTeacherTel.setText(clicked.getTel());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                openTeacher.setView(root3);
+                                openTeacher.show();
+                            }
+                        });
+                    }
+                }.start();
+
+
 
             }
         };
@@ -85,7 +109,6 @@ public class TeacherFragment extends Fragment {
                 addTeacherName = root2.findViewById(R.id.addTeacherName);
                 addteacherEmail = root2.findViewById(R.id.addTeacherEmail);
                 addTeacherTel = root2.findViewById(R.id.addTeacherTel);
-                addTeacherSubjects = root2.findViewById(R.id.addTeacherSubjects);
                 addTeacher.setView(root2);
                 addTeacher.show();
             }
@@ -101,15 +124,33 @@ public class TeacherFragment extends Fragment {
     }
     public void setInUIThread(List<Teacher> c) {
         Context ctx = getContext();
-        getActivity().runOnUiThread(new Runnable() {
+        Log.d("mytag", "" + c.size());
+        new Thread() {
             @Override
             public void run() {
-                Log.d("mytag", "" + c.size());
-                rVteacherAdapter = new RVteacherAdapter(c, onItemClickListener);
-                rv.setAdapter(rVteacherAdapter);
+                ArrayList<String> tSubjects = new ArrayList<>();
+                for (Teacher i: c) {
+                    String subjects = "";
+                    for (Subject y: subjectDao.findByTeach(i.get_id())) {
+                        subjects += y.getName();
+                        subjects += "\n";
+                    }
+                    if (subjects.length() != 0){
+                        subjects = subjects.substring(0, subjects.length() - 1);}
+                    else {
+                        subjects = "Данные не указаны";
+                    }
+                    tSubjects.add(subjects);
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rVteacherAdapter = new RVteacherAdapter(c,tSubjects ,onItemClickListener);
+                        rv.setAdapter(rVteacherAdapter);
+                    }
+                });
             }
-        });
-
+        }.start();
     }
     public void setDialogs(){
         addTeacher = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
@@ -117,14 +158,13 @@ public class TeacherFragment extends Fragment {
         addTeacherName = root2.findViewById(R.id.addTeacherName);
         addteacherEmail = root2.findViewById(R.id.addTeacherEmail);
         addTeacherTel = root2.findViewById(R.id.addTeacherTel);
-        addTeacherSubjects = root2.findViewById(R.id.addTeacherSubjects);
         addTeacher.setView(root2)
                 .setTitle("Добавление учителя")
                 .setNegativeButton("Закрыть", null)
                 .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Teacher added = new Teacher(addTeacherName.getText().toString(), addTeacherSubjects.getText().toString(), addTeacherTel.getText().toString(), addteacherEmail.getText().toString());
+                        Teacher added = new Teacher(addTeacherName.getText().toString(), addTeacherTel.getText().toString(), addteacherEmail.getText().toString());
                         new Thread(){
                             @Override
                             public void run() {
@@ -147,6 +187,12 @@ public class TeacherFragment extends Fragment {
                             @Override
                             public void run() {
                                 teacherDao.delete(clicked);
+                                List<Subject> d = subjectDao.findByTeach(clicked.get_id());
+                                for (int i = 0; i < d.size(); i++) {
+                                    Subject dd = d.get(i);
+                                    dd.setTeach_id(-1);
+                                    subjectDao.update(dd);
+                                }
                                 List<Teacher> c = teacherDao.selectAll();
                                 setInUIThread(c);
                             }
@@ -173,7 +219,7 @@ public class TeacherFragment extends Fragment {
                 .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Teacher newTeacher = new Teacher(clicked.get_id(), addTeacherName.getText().toString(), addTeacherSubjects.getText().toString(), addTeacherTel.getText().toString(), addteacherEmail.getText().toString());
+                        Teacher newTeacher = new Teacher(clicked.get_id(), openTeacherName.getText().toString(), openTeacherTel.getText().toString(), openTeacherEmail.getText().toString());
                         new Thread(){
                             @Override
                             public void run() {

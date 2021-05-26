@@ -23,13 +23,11 @@ public class RVsubjectAdapter extends RecyclerView.Adapter<RVsubjectAdapter.Subj
     }
     public static class SubjectViewHolder extends RecyclerView.ViewHolder{
         TextView tx1, tx2;
-        ImageView img;
 
         public SubjectViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             tx1 = itemView.findViewById(R.id.itemName);
             tx2 = itemView.findViewById(R.id.itemCabinet);
-            img = itemView.findViewById(R.id.imageView3);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -58,7 +56,6 @@ public class RVsubjectAdapter extends RecyclerView.Adapter<RVsubjectAdapter.Subj
     public void onBindViewHolder(@NonNull SubjectViewHolder holder, int position) {
         holder.tx1.setText(subjects.get(position).getName());
         holder.tx2.setText(subjects.get(position).getCabinet());
-        holder.img.setImageResource(R.drawable.ic__41_sticky_notes);
     }
 
     @Override

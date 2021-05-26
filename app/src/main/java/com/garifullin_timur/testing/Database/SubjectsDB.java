@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Subject.class}, version = 3)
+@Database(entities = {Subject.class, Teacher.class}, version = 6)
 public abstract class SubjectsDB extends RoomDatabase {
     public abstract SubjectDao subjectDao();
 

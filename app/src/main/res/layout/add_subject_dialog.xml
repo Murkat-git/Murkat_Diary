@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorPrimaryVariant"
     android:orientation="vertical">
     <EditText
@@ -20,4 +21,27 @@
         android:textColor="?attr/colorOnPrimary"
         android:textColorHint="?attr/colorOnPrimary"
         android:backgroundTint="?attr/colorOnPrimary"/>
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            app:hintText="Выберите учителя"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+
+            />
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <AutoCompleteTextView-->
+<!--            android:id="@+id/autoCompleteTextView"-->
+<!--            android:popupBackground="?attr/colorPrimary"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
 </LinearLayout>

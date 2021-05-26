@@ -72,7 +72,7 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
 
     @Override
     public void onBindViewHolder(@NonNull RVhomeworkAdapter.HomeViewHolder holder, int position) {
-        holder.tx1.setText(homeworks.get(position).getSubjectName());
+        holder.tx1.setText(subNames.get(position));
         holder.tx2.setText(homeworks.get(position).getDz());
         if (homeworks.get(position).isDone()){
             holder.img.setImageResource(R.drawable.ic_fi_rr_checkbox);
@@ -96,9 +96,11 @@ public class RVhomeworkAdapter extends RecyclerView.Adapter<RVhomeworkAdapter.Ho
     }
     Context context;
     List<HomeWork> homeworks;
-    public RVhomeworkAdapter(Context context, List<HomeWork> subjects, RVhomeworkAdapter.OnItemClickListener listener) {
+    List<String> subNames;
+    public RVhomeworkAdapter(Context context, List<HomeWork> subjects, RVhomeworkAdapter.OnItemClickListener listener, List<String> subjectNames) {
         this.context = context;
         this.homeworks = subjects;
         mListener = listener;
+        this.subNames = subjectNames;
     }
 }

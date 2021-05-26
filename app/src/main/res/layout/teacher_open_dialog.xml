@@ -27,39 +27,43 @@
 
     <EditText
         android:id="@+id/openTeacherName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnPrimary"
         android:text="Татьяна Сергеевна Жукович"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/openTeacherTel"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        android:layout_width="wrap_content" />
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <EditText
         android:id="@+id/openTeacherEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnPrimary"
         android:text="murkat2007@yandex.ru"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/openTeacherTel"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/openTeacherName" />
 
     <EditText
         android:id="@+id/openTeacherTel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnPrimary"
         android:text="+79174849028"
         android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintStart_toStartOf="@+id/openTeacherSubjects"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/openTeacherEmail" />
 
     <TextView
@@ -96,13 +100,13 @@
         android:id="@+id/openTeacherSubjects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="23dp"
-        android:backgroundTint="?attr/colorOnPrimary"
-        android:text="Русский, Литература"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:inputType="none"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/openTeacherTel"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

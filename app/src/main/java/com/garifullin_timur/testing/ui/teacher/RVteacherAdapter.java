@@ -15,6 +15,8 @@ import com.garifullin_timur.testing.Database.Teacher;
 import com.garifullin_timur.testing.R;
 import com.garifullin_timur.testing.ui.home.RVsubjectAdapter;
 
+import org.w3c.dom.ls.LSInput;
+
 import java.util.List;
 
 public class RVteacherAdapter extends RecyclerView.Adapter<RVteacherAdapter.TeacherViewHolder>{
@@ -55,7 +57,7 @@ public class RVteacherAdapter extends RecyclerView.Adapter<RVteacherAdapter.Teac
     @Override
     public void onBindViewHolder(@NonNull RVteacherAdapter.TeacherViewHolder holder, int position) {
         holder.tx1.setText(teachers.get(position).getName());
-        holder.tx2.setText(teachers.get(position).getSubjects());
+        holder.tx2.setText(subjects.get(position));
     }
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -65,13 +67,18 @@ public class RVteacherAdapter extends RecyclerView.Adapter<RVteacherAdapter.Teac
     public Teacher getItem(int position) {
         return teachers.get(position);
     }
+
+    public String getSubjects(int pos){return subjects.get(pos);}
+
     @Override
     public int getItemCount() {
         return teachers.size();
     }
     List<Teacher> teachers;
-    public RVteacherAdapter(List<Teacher> teachers, RVteacherAdapter.OnItemClickListener listener) {
+    List<String> subjects;
+    public RVteacherAdapter(List<Teacher> teachers,List<String> subjects ,RVteacherAdapter.OnItemClickListener listener) {
         this.teachers = teachers;
         mListener = listener;
+        this.subjects = subjects;
     }
 }

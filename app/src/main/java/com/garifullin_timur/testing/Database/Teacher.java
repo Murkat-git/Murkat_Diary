@@ -1,9 +1,13 @@
 package com.garifullin_timur.testing.Database;
 
 import androidx.annotation.NonNull;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
+
+import java.util.List;
 
 @Entity(tableName = "teachers")
 public class Teacher {
@@ -11,22 +15,19 @@ public class Teacher {
     @NonNull
     int _id;
     String name;
-    String subjects;
     String tel;
     String email;
 
-    public Teacher(String name,String subjects, String tel, String email) {
+    public Teacher(String name, String tel, String email) {
         this.name = name;
-        this.subjects = subjects;
         this.tel = tel;
         this.email = email;
 
     }
     @Ignore
-    public Teacher(int _id, String name, String subjects, String tel, String email) {
+    public Teacher(int _id, String name, String tel, String email) {
         this._id = _id;
         this.name = name;
-        this.subjects = subjects;
         this.tel = tel;
         this.email = email;
     }
@@ -63,11 +64,16 @@ public class Teacher {
         this.email = email;
     }
 
-    public String getSubjects() {
-        return subjects;
-    }
 
-    public void setSubjects(String subjects) {
-        this.subjects = subjects;
+    @Override
+    public String toString() {
+        return name;
     }
 }
+//class TeacherWithSubjects {
+//    @Embedded
+//    public Teacher teacher;
+//    @Relation(parentColumn = "_id", entity = Subject.class, entityColumn = "teach_id")
+//    public List<Subject> tags;
+////other fields
+//}

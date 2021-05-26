@@ -20,11 +20,14 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(null);
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
         Preference theme = findPreference("theme");
         theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

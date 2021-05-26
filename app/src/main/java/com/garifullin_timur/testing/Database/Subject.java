@@ -2,29 +2,37 @@ package com.garifullin_timur.testing.Database;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "subjects")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "subjects"
+//        ,
+//        foreignKeys = @ForeignKey(entity = Teacher.class,
+//                parentColumns = "_id",
+//                childColumns = "teach_id",
+//                onDelete = ForeignKey.CASCADE)
+)
 public class Subject {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     int _id;
     String name;
     String cabinet;
-    int dayIndex;
-    public Subject(String name, String cabinet, int dayIndex) {
+    int teach_id;
+    public Subject(String name, String cabinet) {
         this.name = name;
         this.cabinet = cabinet;
-        this.dayIndex = dayIndex;
     }
     @Ignore
-    public Subject(int _id, String name, String cabinet, int dayIndex) {
+    public Subject(int _id, String name, String cabinet) {
         this._id = _id;
         this.name = name;
         this.cabinet = cabinet;
-        this.dayIndex = dayIndex;
     }
 
     public int get_id() {
@@ -51,11 +59,11 @@ public class Subject {
         this.cabinet = cabinet;
     }
 
-    public int getDayIndex() {
-        return dayIndex;
+    public int getTeach_id() {
+        return teach_id;
     }
 
-    public void setDayIndex(int dayIndex) {
-        this.dayIndex = dayIndex;
+    public void setTeach_id(int teach_id) {
+        this.teach_id = teach_id;
     }
 }

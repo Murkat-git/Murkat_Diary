@@ -13,6 +13,13 @@
         <item name="colorSecondary">?attr/colorPrimaryVariant</item>
         <item name="colorAccent">?attr/colorPrimaryVariant</item>
         <item name="android:alertDialogTheme">@style/MyAlertDialogTheme</item>
+        <item name="preferenceCategoryStyle">@style/MyCategoryStyle</item>
+        <item name="alertDialogTheme">@style/MyAlertDialogTheme</item>
+        <item name="popupMenuBackground">?attr/colorPrimaryVariant</item>
+        <item name="textColorAlertDialogListItem">?attr/colorOnPrimary</item>
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
+        <item name="colorControlActivated">?attr/colorOnPrimary</item>
+        <item name="android:editTextColor">?attr/colorOnPrimary</item>
         <!-- Secondary brand color. -->
 <!--        <item name="colorSecondary">@color/teal_200</item>-->
 <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
@@ -23,6 +30,21 @@
         <item name="actionBarSize">40dp</item>
 
 
+    </style>
+
+    <style name="MyCategoryStyle" parent="Preference.Category">
+        <item name="colorAccent">?attr/colorOnPrimary</item>
+        <item name="colorSurface">?attr/colorOnPrimary</item>
+    </style>
+
+
+    <style name="AutocompleteStyle"  parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownMenuBackground</item>
+    </style>
+
+    <style name="DropDownMenuBackground">
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
     <style name="Theme.Testing.NoActionBar">
