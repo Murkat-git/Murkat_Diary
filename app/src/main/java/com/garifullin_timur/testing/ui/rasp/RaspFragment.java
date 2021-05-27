@@ -29,6 +29,7 @@ import com.garifullin_timur.testing.Database.SubjectsDB;
 import com.garifullin_timur.testing.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import org.w3c.dom.Text;
 
@@ -52,7 +53,7 @@ public class RaspFragment extends Fragment {
     TextView deleteSubjectName;
     EditText addSubjectName;
     EditText addSubjectCabinet;
-    Spinner spinner;
+    SearchableSpinner spinner;
     Subject selectedSubject;
     List<Subject> toSpinner;
     SubjectDao subjectDao;
@@ -79,6 +80,7 @@ public class RaspFragment extends Fragment {
                         root2 = inflater.inflate(R.layout.add_rasp_dialog, null);
                         spinner = root2.findViewById(R.id.spinner);
                         toSpinner = subjectDao.selectAll();
+                        spinner.setTitle("Выберите предмет");
                         List<String> names = new AbstractList<String>() {
                             @Override
                             public int size() { return toSpinner.size(); }
@@ -204,6 +206,7 @@ public class RaspFragment extends Fragment {
             @Override
             public void run() {
                 toSpinner = subjectDao.selectAll();
+                spinner.setTitle("Выберите предмет");
                 List<String> names = new AbstractList<String>() {
                     @Override
                     public int size() { return toSpinner.size(); }

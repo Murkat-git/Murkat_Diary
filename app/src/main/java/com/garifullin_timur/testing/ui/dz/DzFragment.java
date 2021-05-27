@@ -42,6 +42,7 @@ import com.garifullin_timur.testing.ui.home.RVsubjectAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableListDialog;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class DzFragment extends Fragment {
                         HomeWork clicked = rVhomeworkAdapter.getItem(position);
                         LayoutInflater inflater = getActivity().getLayoutInflater();
                         View root2 = inflater.inflate(R.layout.homework_open_dialog, null);
-                        Spinner spinner = root2.findViewById(R.id.spinner);
+                        SearchableSpinner spinner = root2.findViewById(R.id.spinner);
                         List<Subject> toSpinner = subjectDao.selectAll();
                         List<String> names = new AbstractList<String>() {
                             @Override
@@ -106,6 +107,7 @@ public class DzFragment extends Fragment {
                         ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item);
                         spinAdapter.addAll(names);
                         spinner.setAdapter(spinAdapter);
+                        spinner.setTitle("Выберите предмет");
                         selectedSubject = null;
                         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
@@ -320,7 +322,7 @@ public class DzFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogTheme);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View root2 = inflater.inflate(R.layout.add_homework_dialog, null);
-        Spinner spinner = root2.findViewById(R.id.spinner);
+        SearchableSpinner spinner = root2.findViewById(R.id.spinner);
         new Thread(){
             @Override
             public void run() {
@@ -337,6 +339,7 @@ public class DzFragment extends Fragment {
                 ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item);
                 spinAdapter.addAll(names);
                 spinner.setAdapter(spinAdapter);
+                spinner.setTitle("Выберите предмет");
                 selectedSubject = null;
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override

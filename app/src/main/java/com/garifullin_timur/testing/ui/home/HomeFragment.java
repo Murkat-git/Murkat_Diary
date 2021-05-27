@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
     EditText addSubjectCabinet;
     AlertDialog.Builder addSubjectBuilder, openSubjectBuilder, deleteSubjectBuilder;
     RVsubjectAdapter.OnItemClickListener mOnClickListener;
-    Spinner spinner;
+    SearchableSpinner spinner;
     Teacher selectedTeacher;
 //    AutoCompleteTextView autoCompleteTextView;
     List<Teacher> toSpinner;
@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
                                 spinner = root2.findViewById(R.id.spinner);
                                 TextView clicked_teach = root2.findViewById(R.id.subjectTeach);
                                 toSpinner = teacherDao.selectAll();
+                                spinner.setTitle("Выберите учителя");
                                 List<String> names = new AbstractList<String>() {
                                     @Override
                                     public int size() { return toSpinner.size(); }
@@ -117,6 +118,7 @@ public class HomeFragment extends Fragment {
                                 Log.d("mytag","" + clickedTeachId);
                                 int pos;
                                 if (clickedTeachId != -1){
+                                    Log.e("mytag", clickedTeachId + "");
                                     Teacher setted = teacherDao.findById(clickedTeachId);
                                     seeDialogSubjectTeach.setText(setted.getName());
                                 }
@@ -246,7 +248,7 @@ public class HomeFragment extends Fragment {
                 ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item);
 //                spinAdapter.add(choose);
                 spinAdapter.addAll(names);
-
+                spinner.setTitle("Выберите учителя");
                 spinner.setAdapter(spinAdapter);
                 selectedTeacher = null;
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
